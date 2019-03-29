@@ -1,0 +1,44 @@
+<div class="ui text container">
+  <h1>Inventory</h1>
+
+  <div class="ui two column grid">
+    <div class="column">
+      <h3>Sign out:</h3><br>
+      <% sign_out = (1..12).to_a - @signed_out %>
+      <% sign_out.each do |i| %>
+        <p><%= i %>
+          <%= form_tag("/inventories", {class: "ui small action input"}) do %>
+            <%= hidden_field_tag :number, i %>
+            <%= text_field_tag :employee_out_id, nil, :placeholder => "Employee Out" %>
+            <%= button_tag "Sign out", :class => "ui button" %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class="column">
+      <h3>Return:</h3><br>
+      <% @signed_out.each do |i| %>
+        <% inventory = Inventory.where(number: i).last %>
+        <p><a href='/inventory/<%= "#{i}" %>'><%= i %></a> -
+          <%= inventory.employee_out.name %>
+          <%= form_for inventory, :html => {:class => "ui small action input"} do |f| %>
+            <%= f.text_field :employee_in_id, :placeholder => "Employee Return" %>
+            <%= f.button "Sign In", :class => "ui button" %>
+          <% end %>
+        </p>
+      <% end %>
+    </div><br>
+
+    <div>
+      Returned:<br>
+      <% @signed_in.each do |i| %>
+        <% inventory = Inventory.where(number: i).last %>
+        <%= inventory.number %>
+        <%= inventory.employee_out.name %>
+        <%= inventory.created_at %>
+        <%= inventory.employee_in.name %>
+        <%= inventory.updated_at %><br>
+      <% end %>
+    </div>
+  </div>
