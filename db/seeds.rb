@@ -1,2 +1,10 @@
 Employee.create(name: "Nick", number: "123456")
 Employee.create(name: "Jortan", number: "234567")
+Employee.create(name: "Susan", number: "345678")
+Employee.create(name: "Fred", number: "456789")
+Employee.create(name: "Jake", number: "567890")
+Employee.create(name: "Kate", number: "678901")
+Employee.create(name: "Bob", number: "789012")
+Employee.create(name: "Emily", number: "890123")
+
+AssetCount.create(count: "12")

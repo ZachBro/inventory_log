@@ -1,0 +1,2 @@
+class AssetCount < ApplicationRecord
+end

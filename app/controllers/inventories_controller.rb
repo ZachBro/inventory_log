@@ -1,5 +1,8 @@
 class InventoriesController < ApplicationController
 
+  def index
+  end
+  
   def new
     @inventory = Inventory.new
   end

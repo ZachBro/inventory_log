@@ -4,12 +4,12 @@
   <div class="ui two column grid">
     <div class="column">
       <h3>Sign out:</h3><br>
-      <% sign_out = (1..12).to_a - @signed_out %>
+      <% sign_out = (1..(@count.to_i)).to_a - @signed_out %>
       <% sign_out.each do |i| %>
         <p><%= i %>
-          <%= form_tag("/inventories", {class: "ui small action input"}) do %>
+          <%= form_tag("/inventories", {class: "ui action input"}) do %>
             <%= hidden_field_tag :number, i %>
-            <%= text_field_tag :employee_out_id, nil, :placeholder => "Employee Out" %>
+            <%= select_tag :employee_out_id, options_from_collection_for_select(Employee.order(:name), :id, :name), {:prompt => "Select Employee", :class => "ui dropdown"} %>
             <%= button_tag "Sign out", :class => "ui button" %>
           <% end %>
         </p>
@@ -22,8 +22,8 @@
         <% inventory = Inventory.where(number: i).last %>
         <p><a href='/inventory/<%= "#{i}" %>'><%= i %></a> -
           <%= inventory.employee_out.name %>
-          <%= form_for inventory, :html => {:class => "ui small action input"} do |f| %>
-            <%= f.text_field :employee_in_id, :placeholder => "Employee Return" %>
+          <%= form_for inventory, :html => {:class => "ui action input"} do |f| %>
+            <%= f.collection_select :employee_in_id, Employee.order(:name), :id, :name, {:prompt => 'Select Employee'}, {:class => "ui fluid search dropdown"} %>
             <%= f.button "Sign In", :class => "ui button" %>
           <% end %>
         </p>
