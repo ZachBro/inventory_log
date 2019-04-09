@@ -36,9 +36,9 @@
         <% inventory = Inventory.where(number: i).last %>
         <%= inventory.number %>
         <%= inventory.employee_out.name %>
-        <%= inventory.created_at %>
+        <%= inventory.created_at.in_time_zone("Melbourne") %>
         <%= inventory.employee_in.name %>
-        <%= inventory.updated_at %><br>
+        <%= inventory.updated_at.in_time_zone("Melbourne") %><br>
       <% end %>
     </div>
   </div>
